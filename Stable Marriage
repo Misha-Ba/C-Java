@@ -1,0 +1,61 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+bool ok(int q[], int c){ 
+    static int mp[3][3] = {{0, 2, 1},
+                           {0, 2, 1},
+                           {1, 2, 0}};
+                           
+    static int wp[3][3] = {{2, 1, 0},
+                           {0, 1, 2},
+                           {2, 0, 1}};
+    //conflict test
+    //New man = c;
+    //New woman = q[c];
+    //current man = i;
+    //current woman = q[i];
+    for (int i = 0; i < c; i++) {                                    
+        if (q[i] == q[c]) return false;   //row test                                          
+        else if(mp[i][q[c]] < mp[i][q[i]] && wp[q[c]][i] < wp[q[c]][c]) return false;
+      //if the last man's prefence for the new woman is < than his preference for the last woman AND the newmoman's preference for the last man is greater than her preference for her spouse
+        else if(mp[c][q[i]] < mp[c][q[c]] && wp[q[i]][c] < wp[q[i]][i]) return false;
+    }
+    //< because 0 means most liked
+    return true;
+}
+
+void print(int q[]){
+    for(int i = 0; i < 3; i++){
+        cout  << q[i];
+    }
+    cout << endl;
+}
+
+int main(){
+    int sol = 1;
+    int q[3] = {0}, col = 0;
+    while(col >= 0){ 
+        if(col > 2){ //if we've reached at the end
+            cout << "Solution " << sol++ << ": \n"; 
+            print(q); //print the board
+            col--; //backtrack;
+            q[col]++; //increments row
+        }
+        
+        if(q[col] > 2){ //if we've tried all values 
+            q[col] = 0; //reset & backtrack
+            col--;
+            if(col != -1) q[col]++; 
+        }
+        
+        //if passes function go to next column
+        else if(ok(q,col) == true){ 
+            col++;
+        }
+        
+        else{
+            q[col]++; //else increment row value
+        }
+    }
+    return 0;
+}
