@@ -2,7 +2,7 @@
 //  main.cpp
 //  GPA calculator
 //
-//  Created by Kamisha Baijnauth on 5/23/22.
+//  Created by Kamisha  on 5/23/22.
 //
 
 #include <iostream>
