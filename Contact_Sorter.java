@@ -1,4 +1,4 @@
-
+//This project uses the bubble sort algorithm to sort contacts and their phone numbers
 public class Contact implements Comparable<Contact> {
     private String name;
     private String phoneNumber;
